@@ -1,7 +1,7 @@
 import XCTest
-@testable import CrusoeApp
+@testable import NomosApp
 
-final class CrusoeAppTests: XCTestCase {
+final class NomosAppTests: XCTestCase {
 
     // MARK: - Model tests (no network required)
 

@@ -4,7 +4,7 @@ import FluentSQLiteDriver
 
 public func configure(_ app: Application) throws {
     // MARK: - Database
-    app.databases.use(.sqlite(.file("crusoe.db")), as: .sqlite)
+    app.databases.use(.sqlite(.file("nomos.db")), as: .sqlite)
 
     // MARK: - Migrations
     app.migrations.add(CreatePortfolio())

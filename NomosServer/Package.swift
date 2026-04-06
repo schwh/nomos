@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "CrusoeServer",
+    name: "NomosServer",
     platforms: [
         .macOS(.v13)
     ],
@@ -13,21 +13,21 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "CrusoeServer",
+            name: "NomosServer",
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
             ],
-            path: "Sources/CrusoeServer"
+            path: "Sources/NomosServer"
         ),
         .testTarget(
-            name: "CrusoeServerTests",
+            name: "NomosServerTests",
             dependencies: [
-                .target(name: "CrusoeServer"),
+                .target(name: "NomosServer"),
                 .product(name: "XCTVapor", package: "vapor"),
             ],
-            path: "Tests/CrusoeServerTests"
+            path: "Tests/NomosServerTests"
         )
     ]
 )

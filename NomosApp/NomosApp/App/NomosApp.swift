@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct CrusoeApp: App {
+struct NomosApp: App {
     @StateObject private var portfolioVM = PortfolioViewModel()
 
     var body: some Scene {

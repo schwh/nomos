@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>Crusoe</string>
+    <string>Nomos</string>
     <key>CFBundleDisplayName</key>
-    <string>Crusoe</string>
+    <string>Nomos</string>
     <key>CFBundleIdentifier</key>
-    <string>com.crusoe.app</string>
+    <string>com.nomos.app</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>CFBundleShortVersionString</key>

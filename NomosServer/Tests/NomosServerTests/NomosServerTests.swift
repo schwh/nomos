@@ -1,7 +1,7 @@
 import XCTVapor
-@testable import CrusoeServer
+@testable import NomosServer
 
-final class CrusoeServerTests: XCTestCase {
+final class NomosServerTests: XCTestCase {
 
     var app: Application!
 

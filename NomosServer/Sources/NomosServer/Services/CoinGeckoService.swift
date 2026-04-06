@@ -19,7 +19,7 @@ struct CoinGeckoService: MarketDataProvider {
         let uri = URI(string: "\(baseURL)/coins/\(coinID)?localization=false&tickers=false&community_data=false&developer_data=false")
 
         let response = try await client.get(uri) { req in
-            req.headers.add(name: .userAgent, value: "CrusoeApp/1.0")
+            req.headers.add(name: .userAgent, value: "NomosApp/1.0")
         }
         guard response.status == .ok else {
             throw Abort(.badGateway, reason: "CoinGecko failed for \(symbol): \(response.status)")
