@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		442E0CB9FCC44742B70A8F40 /* CrusoeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C679932C534D7C95AE5509 /* CrusoeApp.swift */; };
+		C031D2EBC97F4BA88F79AEA2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6293D875B44BF6892364CC /* ContentView.swift */; };
+		684B2F8D127643A6BFA6D009 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C182EA83D4B36BF6A6634 /* APIClient.swift */; };
+		A9595BDCA21E4C39A85F746B /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04711879F3FD4CCEBBBEE668 /* APIEndpoints.swift */; };
+		E69591CF1F684C198B175357 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F259CE54A364FBE80005AB3 /* Portfolio.swift */; };
+		84F399ED74AD4812A5988DE4 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5B533CDDFC4C2081F0BA91 /* Holding.swift */; };
+		1550130659BC4474AD6E5A28 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B34C3377632443781BE3089 /* Transaction.swift */; };
+		DF92ED271D9F46EB82613481 /* MarketQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DAAFB6E71B4994A42BA147 /* MarketQuote.swift */; };
+		DF765A58BA294331B9EDDB3F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4984779F064D0DA2F8A1F5 /* DashboardView.swift */; };
+		019D421B11FE48B2ADC2AA7C /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB9B50B9B24EFB963C8C19 /* PortfolioViewModel.swift */; };
+		9798EDF6771647B491A8AEEA /* HoldingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF7CA7E6674B4E9E9A76E6 /* HoldingsView.swift */; };
+		ECBB636087554FF097AFD962 /* AddHoldingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA6FFFB82394E79981B4038 /* AddHoldingView.swift */; };
+		A93AB9D284E2481C96BD41CE /* HoldingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD12C7374FC40B2A84A1393 /* HoldingDetailView.swift */; };
+		AA6F12DAD6714F079C221587 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3C44DF066242B6B79B413D /* AddTransactionView.swift */; };
+		1392C694FBF74DC998DEC368 /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1C449F017A46B0BD8E45FF /* TransactionListView.swift */; };
+		779EC95DACCC45B7A2E97919 /* PriceChangeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0DC0149EE245BDABBA312C /* PriceChangeLabel.swift */; };
+		3A0CEEF24B614746BCA0CD3C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7864C2CAA8E24E098B2B312B /* LoadingView.swift */; };
+		5DA01DF82482413C9C58974F /* CrusoeAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047271BCA8D7407085EB4C9D /* CrusoeAppTests.swift */; };
+		CF9E2139B17C45D48DF39BFA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBD0DE1565D44FBB6870A8F /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		54C679932C534D7C95AE5509 /* CrusoeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrusoeApp.swift"; sourceTree = "<group>"; };
+		5A6293D875B44BF6892364CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView.swift"; sourceTree = "<group>"; };
+		A82C182EA83D4B36BF6A6634 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient.swift"; sourceTree = "<group>"; };
+		04711879F3FD4CCEBBBEE668 /* APIEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIEndpoints.swift"; sourceTree = "<group>"; };
+		4F259CE54A364FBE80005AB3 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Portfolio.swift"; sourceTree = "<group>"; };
+		0B5B533CDDFC4C2081F0BA91 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Holding.swift"; sourceTree = "<group>"; };
+		8B34C3377632443781BE3089 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction.swift"; sourceTree = "<group>"; };
+		43DAAFB6E71B4994A42BA147 /* MarketQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarketQuote.swift"; sourceTree = "<group>"; };
+		3B4984779F064D0DA2F8A1F5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardView.swift"; sourceTree = "<group>"; };
+		5CEB9B50B9B24EFB963C8C19 /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PortfolioViewModel.swift"; sourceTree = "<group>"; };
+		89FF7CA7E6674B4E9E9A76E6 /* HoldingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HoldingsView.swift"; sourceTree = "<group>"; };
+		BFA6FFFB82394E79981B4038 /* AddHoldingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddHoldingView.swift"; sourceTree = "<group>"; };
+		CDD12C7374FC40B2A84A1393 /* HoldingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HoldingDetailView.swift"; sourceTree = "<group>"; };
+		AB3C44DF066242B6B79B413D /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddTransactionView.swift"; sourceTree = "<group>"; };
+		1D1C449F017A46B0BD8E45FF /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionListView.swift"; sourceTree = "<group>"; };
+		7A0DC0149EE245BDABBA312C /* PriceChangeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PriceChangeLabel.swift"; sourceTree = "<group>"; };
+		7864C2CAA8E24E098B2B312B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingView.swift"; sourceTree = "<group>"; };
+		047271BCA8D7407085EB4C9D /* CrusoeAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrusoeAppTests.swift"; sourceTree = "<group>"; };
+		DBBD0DE1565D44FBB6870A8F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
+		53BCD119314541DFAE33967B /* CrusoeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrusoeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89538CC2025A40DF8E1D2B0B /* CrusoeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrusoeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D0D81EAA37DA47E0B0614EDB = {
+			isa = PBXGroup;
+			children = (
+				A82C182EA83D4B36BF6A6634,
+				04711879F3FD4CCEBBBEE668,
+			);
+			path = "Network";
+			sourceTree = "<group>";
+		};
+		0B4C771EE4FA48D7BB16D10A = {
+			isa = PBXGroup;
+			children = (
+				4F259CE54A364FBE80005AB3,
+				0B5B533CDDFC4C2081F0BA91,
+				8B34C3377632443781BE3089,
+				43DAAFB6E71B4994A42BA147,
+			);
+			path = "Models";
+			sourceTree = "<group>";
+		};
+		15C1D29C469A4107869F5CB0 = {
+			isa = PBXGroup;
+			children = (
+				3B4984779F064D0DA2F8A1F5,
+				5CEB9B50B9B24EFB963C8C19,
+			);
+			path = "Dashboard";
+			sourceTree = "<group>";
+		};
+		66EDA0C8A2E94BD8B6C219C1 = {
+			isa = PBXGroup;
+			children = (
+				89FF7CA7E6674B4E9E9A76E6,
+				BFA6FFFB82394E79981B4038,
+				CDD12C7374FC40B2A84A1393,
+			);
+			path = "Holdings";
+			sourceTree = "<group>";
+		};
+		1494CA0D31C14D768B5A4C1E = {
+			isa = PBXGroup;
+			children = (
+				AB3C44DF066242B6B79B413D,
+				1D1C449F017A46B0BD8E45FF,
+			);
+			path = "Transactions";
+			sourceTree = "<group>";
+		};
+		25BB9E4B0F37444A8D75C111 = {
+			isa = PBXGroup;
+			children = (
+				7A0DC0149EE245BDABBA312C,
+				7864C2CAA8E24E098B2B312B,
+			);
+			path = "Components";
+			sourceTree = "<group>";
+		};
+		548CB8E43166489EA7115ECB = {
+			isa = PBXGroup;
+			children = (
+				D0D81EAA37DA47E0B0614EDB,
+				0B4C771EE4FA48D7BB16D10A,
+			);
+			path = "Core";
+			sourceTree = "<group>";
+		};
+		01D3299ECBA5474E9E9F69C5 = {
+			isa = PBXGroup;
+			children = (
+				15C1D29C469A4107869F5CB0,
+				66EDA0C8A2E94BD8B6C219C1,
+				1494CA0D31C14D768B5A4C1E,
+			);
+			path = "Features";
+			sourceTree = "<group>";
+		};
+		49DCC19CFCEA421B9E309A7F = {
+			isa = PBXGroup;
+			children = (
+				25BB9E4B0F37444A8D75C111,
+			);
+			path = "Shared";
+			sourceTree = "<group>";
+		};
+		ABFBD118BF234BC7A3FC808C = {
+			isa = PBXGroup;
+			children = (
+				54C679932C534D7C95AE5509,
+				5A6293D875B44BF6892364CC,
+			);
+			path = "App";
+			sourceTree = "<group>";
+		};
+		1691B87A029247E4B33E8252 = {
+			isa = PBXGroup;
+			children = (
+				DBBD0DE1565D44FBB6870A8F,
+			);
+			path = "Resources";
+			sourceTree = "<group>";
+		};
+		1A7CEBE356684E1C810B32B4 = {
+			isa = PBXGroup;
+			children = (
+				047271BCA8D7407085EB4C9D,
+			);
+			path = "CrusoeAppTests";
+			sourceTree = "<group>";
+		};
+		AAC5CA70966C44EE9BFC90A2 = {
+			isa = PBXGroup;
+			children = (
+				53BCD119314541DFAE33967B,
+				89538CC2025A40DF8E1D2B0B,
+			);
+			name = "Products";
+			sourceTree = "<group>";
+		};
+		721B770490EE4B0A9F75FC18 = {
+			isa = PBXGroup;
+			children = (
+				ABFBD118BF234BC7A3FC808C,
+				548CB8E43166489EA7115ECB,
+				01D3299ECBA5474E9E9F69C5,
+				49DCC19CFCEA421B9E309A7F,
+				1691B87A029247E4B33E8252,
+				AAC5CA70966C44EE9BFC90A2,
+			);
+			path = "CrusoeApp";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11AB716AB22046ED81D17966 /* CrusoeApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 194423A9224549FEAC2DEA4C;
+			buildPhases = (
+				4F906F74569743D3BDEBFEF1,
+				AFBA63F52EB44CC9974AAE99,
+				B078678812EF43BAA8B5FC68,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = CrusoeApp;
+			productName = CrusoeApp;
+			productReference = 53BCD119314541DFAE33967B;
+			productType = "com.apple.product-type.application";
+		};
+		D2D02EFFE0FD4A5FA5926F02 /* CrusoeAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18E271704A414BB5AA3E8B56;
+			buildPhases = (
+				6C0626AF5BCC4D028AE06C2E,
+				09BCF7C7B4A34A9AB70782A5,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = CrusoeAppTests;
+			productName = CrusoeAppTests;
+			productReference = 89538CC2025A40DF8E1D2B0B;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4F906F74569743D3BDEBFEF1 = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				442E0CB9FCC44742B70A8F40,
+				C031D2EBC97F4BA88F79AEA2,
+				684B2F8D127643A6BFA6D009,
+				A9595BDCA21E4C39A85F746B,
+				E69591CF1F684C198B175357,
+				84F399ED74AD4812A5988DE4,
+				1550130659BC4474AD6E5A28,
+				DF92ED271D9F46EB82613481,
+				DF765A58BA294331B9EDDB3F,
+				019D421B11FE48B2ADC2AA7C,
+				9798EDF6771647B491A8AEEA,
+				ECBB636087554FF097AFD962,
+				A93AB9D284E2481C96BD41CE,
+				AA6F12DAD6714F079C221587,
+				1392C694FBF74DC998DEC368,
+				779EC95DACCC45B7A2E97919,
+				3A0CEEF24B614746BCA0CD3C,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6C0626AF5BCC4D028AE06C2E = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DA01DF82482413C9C58974F,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AFBA63F52EB44CC9974AAE99 = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF9E2139B17C45D48DF39BFA,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B078678812EF43BAA8B5FC68 = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09BCF7C7B4A34A9AB70782A5 = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXProject section */
+		83E621FB81924EA5A8DF125E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					11AB716AB22046ED81D17966 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					D2D02EFFE0FD4A5FA5926F02 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 11AB716AB22046ED81D17966;
+					};
+				};
+			};
+			buildConfigurationList = A8F2BA05823B46ECB1B2A6D8;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base);
+			mainGroup = 721B770490EE4B0A9F75FC18;
+			productRefGroup = AAC5CA70966C44EE9BFC90A2;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11AB716AB22046ED81D17966,
+				D2D02EFFE0FD4A5FA5926F02,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		E3D39EED1B6C49F5819FF895 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				SWIFT_VERSION = 5.0;
+				SDKROOT = iphoneos;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		751F297FC7B040B787059BE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				SWIFT_VERSION = 5.0;
+				SDKROOT = iphoneos;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Release;
+		};
+		CB0C8448D64940A8AF1874C5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_IDENTIFIER = com.crusoe.app;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CrusoeApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crusoe.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A4C66B65372E4E3389B00E82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUNDLE_IDENTIFIER = com.crusoe.app;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = CrusoeApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crusoe.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		2AE6685FAD804C93B9FCAA65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_IDENTIFIER = com.crusoe.app.tests;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crusoe.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrusoeApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CrusoeApp";
+			};
+			name = Debug;
+		};
+		3D570116E18F48228CEC796F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				BUNDLE_IDENTIFIER = com.crusoe.app.tests;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.crusoe.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CrusoeApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CrusoeApp";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A8F2BA05823B46ECB1B2A6D8 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E3D39EED1B6C49F5819FF895,
+				751F297FC7B040B787059BE3,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		194423A9224549FEAC2DEA4C = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB0C8448D64940A8AF1874C5,
+				A4C66B65372E4E3389B00E82,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		18E271704A414BB5AA3E8B56 = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AE6685FAD804C93B9FCAA65,
+				3D570116E18F48228CEC796F,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 83E621FB81924EA5A8DF125E;
+}

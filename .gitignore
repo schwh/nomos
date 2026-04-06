@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node (unused scaffold)
+node_modules/
+npm-debug.log*
+
+# Xcode / iOS
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+.swiftpm/
+
+# Swift / Vapor build artifacts
+.build/
+*.o
+*.d
+
+# SQLite databases (runtime, never commit)
+*.db
+*.sqlite
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
