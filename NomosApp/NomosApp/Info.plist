@@ -6,6 +6,10 @@
     <string>Nomos</string>
     <key>CFBundleDisplayName</key>
     <string>Nomos</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
     <key>CFBundleIdentifier</key>
     <string>com.nomos.app</string>
     <key>CFBundleVersion</key>

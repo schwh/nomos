@@ -9,7 +9,9 @@ import SwiftUI
 //   - Corner radius: xl (24px) for cards, md (12px) for compact
 
 struct GlassCard<Content: View>: View {
-    var cornerRadius: CGFloat = 24
+    @EnvironmentObject private var theme: ThemeManager
+
+    var cornerRadius: CGFloat = 22
     var showGlow: Bool = false
     var padding: CGFloat = 20
     let content: () -> Content
@@ -18,9 +20,7 @@ struct GlassCard<Content: View>: View {
         ZStack(alignment: .bottomTrailing) {
             content()
                 .padding(padding)
-                .background {
-                    glassBackground
-                }
+                .background { glassBackground }
 
             if showGlow {
                 ambientGlowBlob
@@ -28,41 +28,59 @@ struct GlassCard<Content: View>: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         .overlay {
+            // Sharper double-stroke: crisp outer edge + subtle inner sheen
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .strokeBorder(Color.outlineVariant.opacity(0.15), lineWidth: 1)
+                .strokeBorder(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.14),
+                            Color.white.opacity(0.02),
+                            theme.current.accent.opacity(0.18)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
         }
     }
 
-    // Backdrop blur + primary gradient overlay
+    // Liquid-glass base: dark tonal floor → ultra-thin material → accent
+    // gradient glaze → specular highlight stroke. Stacks build depth.
     private var glassBackground: some View {
         ZStack {
-            // Dark base so blur has something rich to work with
             Color.surfaceContainerLow
 
-            // Blur layer
             Rectangle()
                 .fill(.ultraThinMaterial)
-                .opacity(0.6)
+                .opacity(0.55)
 
-            // Primary glow gradient (the "liquid glass" effect)
             LinearGradient(
                 colors: [
-                    Color.primary.opacity(0.12),
-                    Color.surfaceTint.opacity(0.04)
+                    theme.current.accent.opacity(0.14),
+                    theme.current.accent.opacity(0.02),
+                    .clear
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
+
+            // Specular highlight along top edge
+            LinearGradient(
+                colors: [Color.white.opacity(0.08), .clear],
+                startPoint: .top,
+                endPoint: .center
+            )
+            .blendMode(.screen)
         }
     }
 
-    // Decorative glow blob — used on hero/balance cards
     private var ambientGlowBlob: some View {
         Ellipse()
-            .fill(Color.primary.opacity(0.05))
-            .frame(width: 180, height: 180)
-            .blur(radius: 60)
-            .offset(x: 40, y: 40)
+            .fill(theme.current.accent.opacity(0.10))
+            .frame(width: 200, height: 200)
+            .blur(radius: 70)
+            .offset(x: 50, y: 50)
             .allowsHitTesting(false)
     }
 }
@@ -87,32 +105,6 @@ struct SurfaceCard<Content: View>: View {
     }
 }
 
-// MARK: - Grain Overlay
-// 2% opacity noise texture over the entire screen.
-// Uses a procedural CIFilter noise — no external asset needed.
-
-struct GrainOverlay: View {
-    var body: some View {
-        GeometryReader { geo in
-            Canvas { context, size in
-                // Draw seeded random noise at 2% opacity
-                var rng = SystemRandomNumberGenerator()
-                for x in stride(from: 0, to: size.width, by: 2) {
-                    for y in stride(from: 0, to: size.height, by: 2) {
-                        let brightness = Double.random(in: 0...1, using: &rng)
-                        context.fill(
-                            Path(CGRect(x: x, y: y, width: 2, height: 2)),
-                            with: .color(Color.white.opacity(brightness * 0.02))
-                        )
-                    }
-                }
-            }
-            .frame(width: geo.size.width, height: geo.size.height)
-            .allowsHitTesting(false)
-            .ignoresSafeArea()
-        }
-    }
-}
 
 // MARK: - Pulse Node
 // Small real-time connectivity indicator (spec: "Pulse Node").
@@ -141,14 +133,21 @@ struct PulseNode: View {
 }
 
 // MARK: - App background modifier
-// Applies the surface base color + grain overlay to any screen.
+// Surface base color → optional theme tint wash → dot grid canvas overlay.
+// The dot grid reads as the "canvas" and sits behind all content.
 
 struct AppBackgroundModifier: ViewModifier {
+    @EnvironmentObject private var theme: ThemeManager
+
     func body(content: Content) -> some View {
         content
-            .background(Color.surface.ignoresSafeArea())
-            .overlay(alignment: .topLeading) {
-                GrainOverlay()
+            .background {
+                ZStack {
+                    Color.surface
+                    theme.current.backgroundTint
+                    DotGridBackground(tint: theme.current.dotTint)
+                }
+                .ignoresSafeArea()
             }
     }
 }

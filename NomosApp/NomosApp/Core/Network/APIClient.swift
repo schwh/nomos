@@ -182,6 +182,10 @@ final class APIClient {
     func fetchQuote(symbol: String, source: String) async throws -> MarketQuote {
         try await request(.quote(symbol: symbol, source: source))
     }
+
+    func fetchNews() async throws -> [NewsArticle] {
+        try await request(.news)
+    }
 }
 
 // MARK: - Type-erased Encodable helper

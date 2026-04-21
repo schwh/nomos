@@ -8,9 +8,10 @@ struct PriceChangeLabel: View {
     let change: Double
     let percent: Double
     var style: PriceChangeLabelStyle = .small
+    @EnvironmentObject private var theme: ThemeManager
 
     private var isPositive: Bool { change >= 0 }
-    private var color: Color { isPositive ? Color.gainGreen : Color.lossRed }
+    private var color: Color { isPositive ? theme.current.accent : Color.lossRed }
     private var arrow: String { isPositive ? "arrow.up" : "arrow.down" }
 
     private var font: Font { style == .large ? .labelLg : .labelMd }
