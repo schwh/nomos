@@ -18,6 +18,7 @@ enum APIEndpoint {
     // MARK: - Market
     case quote(symbol: String, source: String)
     case hyperliquidAssets
+    case news
 
     var path: String {
         switch self {
@@ -41,6 +42,8 @@ enum APIEndpoint {
             return "/api/v1/market/quote/\(symbol)?source=\(source)"
         case .hyperliquidAssets:
             return "/api/v1/market/assets/hyperliquid"
+        case .news:
+            return "/api/v1/market/news"
         }
     }
 }

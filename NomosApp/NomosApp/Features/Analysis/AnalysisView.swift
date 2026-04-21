@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AnalysisView: View {
     @EnvironmentObject private var portfolioVM: PortfolioViewModel
+    @EnvironmentObject private var theme: ThemeManager
     @StateObject private var vm = AnalysisViewModel()
 
     var body: some View {
@@ -43,7 +44,7 @@ struct AnalysisView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Portfolio Health")
                 .trackedLabel()
-                .foregroundStyle(Color.primary.opacity(0.8))
+                .foregroundStyle(theme.current.accent.opacity(0.8))
             Text("Analysis")
                 .font(.displaySm)
                 .foregroundStyle(Color.onSurface)
@@ -69,11 +70,11 @@ struct AnalysisView: View {
                     Spacer()
                     ZStack {
                         Circle()
-                            .fill(Color.primary.opacity(0.10))
+                            .fill(theme.current.accent.opacity(0.12))
                             .frame(width: 44, height: 44)
                         Image(systemName: "chart.pie.fill")
                             .font(.system(size: 18, weight: .light))
-                            .foregroundStyle(Color.primary)
+                            .foregroundStyle(theme.current.accent)
                     }
                 }
 
@@ -155,7 +156,7 @@ struct AnalysisView: View {
                 Spacer()
                 Text("1D Change")
                     .trackedLabel()
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(theme.current.accent)
             }
 
             VStack(spacing: 0) {
@@ -191,7 +192,7 @@ struct AnalysisView: View {
 
     private func dotColor(for region: String) -> Color {
         switch region {
-        case "USA":    return Color.primary
+        case "USA":    return theme.current.accent
         case "EU":     return Color.outline
         case "Asia":   return Color.outlineVariant
         default:       return Color.secondary
@@ -200,7 +201,7 @@ struct AnalysisView: View {
 
     private func volatilityColor(_ label: String) -> Color {
         switch label {
-        case "Low":      return Color.primary
+        case "Low":      return theme.current.accent
         case "Medium":   return Color.secondary
         case "High":     return Color.tertiary
         default:         return Color.appError
@@ -213,6 +214,7 @@ struct AnalysisView: View {
 private struct SectorBar: View {
     let sector: SectorExposure
     let isPrimary: Bool
+    @EnvironmentObject private var theme: ThemeManager
 
     var body: some View {
         VStack(spacing: 8) {
@@ -223,7 +225,7 @@ private struct SectorBar: View {
                 Spacer()
                 Text(String(format: "%.1f%%", sector.percentage))
                     .font(.labelLg.weight(.bold))
-                    .foregroundStyle(isPrimary ? Color.primary : Color.secondaryText)
+                    .foregroundStyle(isPrimary ? theme.current.accent : Color.secondaryText)
             }
 
             GeometryReader { geo in
@@ -236,11 +238,11 @@ private struct SectorBar: View {
                     // Fill
                     RoundedRectangle(cornerRadius: 4, style: .continuous)
                         .fill(isPrimary
-                              ? Color.primary
+                              ? theme.current.accent
                               : Color.outline.opacity(isPrimary ? 1.0 : 0.6))
                         .frame(width: geo.size.width * (sector.percentage / 100), height: 6)
                         .shadow(
-                            color: isPrimary ? Color.primary.opacity(0.4) : .clear,
+                            color: isPrimary ? theme.current.accent.opacity(0.4) : .clear,
                             radius: 6, x: 0, y: 0
                         )
                 }
@@ -254,6 +256,7 @@ private struct SectorBar: View {
 
 private struct MarketDynamicRow: View {
     let item: MarketDynamic
+    @EnvironmentObject private var theme: ThemeManager
 
     var body: some View {
         HStack(spacing: 16) {
@@ -285,7 +288,7 @@ private struct MarketDynamicRow: View {
                             item.isPositive ? "+" : "",
                             item.changePercent))
                     .font(.titleMd)
-                    .foregroundStyle(item.isPositive ? Color.gainGreen : Color.lossRed)
+                    .foregroundStyle(item.isPositive ? theme.current.accent : Color.lossRed)
                 Text(item.period)
                     .trackedLabel()
                     .foregroundStyle(Color.secondaryText)
@@ -300,12 +303,13 @@ private struct MarketDynamicRow: View {
 
 private struct SuggestionCard: View {
     let suggestion: OptimizationSuggestion
+    @EnvironmentObject private var theme: ThemeManager
 
     private var accentColor: Color {
         switch suggestion.severity {
         case "warning":  return Color.tertiary
         case "critical": return Color.appError
-        default:         return Color.primary
+        default:         return theme.current.accent
         }
     }
 

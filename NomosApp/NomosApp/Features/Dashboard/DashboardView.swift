@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @EnvironmentObject private var vm: PortfolioViewModel
+    @EnvironmentObject private var theme: ThemeManager
 
     var body: some View {
         ScrollView {
@@ -34,7 +35,7 @@ struct DashboardView: View {
                     .foregroundStyle(Color.secondaryText)
                 Text(vm.totalValue.formatted(.currency(code: "USD")))
                     .font(.headlineLg)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(theme.current.accent)
             }
             Spacer()
             HStack(spacing: 12) {
@@ -44,7 +45,7 @@ struct DashboardView: View {
                 } label: {
                     Image(systemName: "arrow.triangle.2.circlepath")
                         .font(.system(size: 20, weight: .light))
-                        .foregroundStyle(Color.primary)
+                        .foregroundStyle(theme.current.accent)
                 }
                 .disabled(vm.isLoading)
             }
@@ -102,11 +103,9 @@ struct DashboardView: View {
                     .trackedLabel()
                     .foregroundStyle(Color.secondaryText)
                 Spacer()
-                NavigationLink(destination: HoldingsView()) {
-                    Text("View All")
-                        .trackedLabel()
-                        .foregroundStyle(Color.primary)
-                }
+                Text("View All")
+                    .trackedLabel()
+                    .foregroundStyle(theme.current.accent)
             }
 
             VStack(spacing: 0) {
@@ -124,7 +123,7 @@ struct DashboardView: View {
         VStack(spacing: 20) {
             Image(systemName: "chart.pie")
                 .font(.system(size: 56, weight: .ultraLight))
-                .foregroundStyle(Color.primary.opacity(0.6))
+                .foregroundStyle(theme.current.accent.opacity(0.6))
             Text("No Portfolio Yet")
                 .font(.headlineSm)
                 .foregroundStyle(Color.primaryText)
