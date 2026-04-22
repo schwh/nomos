@@ -7,7 +7,9 @@ struct AddTransactionView: View {
     @EnvironmentObject private var vm: PortfolioViewModel
     @Environment(\.dismiss) private var dismiss
 
-    @State private var type: TransactionType = .buy
+    // Always a buy — selling is done via Edit Position (quick override) to
+    // avoid a confusing picker for the 95% case.
+    private let type: TransactionType = .buy
     @State private var quantity = ""
     @State private var price = ""
     @State private var fees = ""
@@ -22,14 +24,7 @@ struct AddTransactionView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Trade") {
-                    Picker("Type", selection: $type) {
-                        ForEach(TransactionType.allCases, id: \.self) { t in
-                            Text(t.displayName).tag(t)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-
+                Section("Buy") {
                     LabeledContent("Symbol") { Text(symbol).foregroundStyle(.secondary) }
 
                     TextField("Quantity", text: $quantity)
@@ -54,7 +49,7 @@ struct AddTransactionView: View {
                     }
                 }
             }
-            .navigationTitle(type == .buy ? "Buy \(symbol)" : "Sell \(symbol)")
+            .navigationTitle("Buy \(symbol)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -64,11 +59,19 @@ struct AddTransactionView: View {
                     Button("Save") { submit() }
                         .disabled(!isValid || isSubmitting)
                 }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") { hideKeyboard() }
+                }
             }
             .overlay {
                 if isSubmitting { LoadingView(message: "Saving...") }
             }
         }
+    }
+
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 
     private func submit() {

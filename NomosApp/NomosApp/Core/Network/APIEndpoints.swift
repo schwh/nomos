@@ -10,6 +10,7 @@ enum APIEndpoint {
     // MARK: - Holdings
     case holdings(portfolioID: String)
     case holding(portfolioID: String, holdingID: String)
+    case positions(portfolioID: String)
 
     // MARK: - Transactions
     case transactions(holdingID: String)
@@ -34,6 +35,8 @@ enum APIEndpoint {
             return "/api/v1/portfolios/\(pid)/holdings"
         case .holding(let pid, let hid):
             return "/api/v1/portfolios/\(pid)/holdings/\(hid)"
+        case .positions(let pid):
+            return "/api/v1/portfolios/\(pid)/positions"
         case .transactions(let hid):
             return "/api/v1/holdings/\(hid)/transactions"
         case .transaction(let hid, let tid):

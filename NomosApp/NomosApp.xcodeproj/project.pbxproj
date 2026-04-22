@@ -454,9 +454,12 @@
 				BUNDLE_IDENTIFIER = com.nomos.app;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8R75SLAY5D;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = NomosApp/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Nomos connects to your local Nomos development server to sync your portfolio.";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nomos.app;
+				PRODUCT_BUNDLE_PACKAGE_TYPE = APPL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -472,9 +475,12 @@
 				BUNDLE_IDENTIFIER = com.nomos.app;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8R75SLAY5D;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = NomosApp/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Nomos connects to your local Nomos development server to sync your portfolio.";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nomos.app;
+				PRODUCT_BUNDLE_PACKAGE_TYPE = APPL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

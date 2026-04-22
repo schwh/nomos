@@ -37,21 +37,27 @@ final class APIClient {
 
     private init() {
         // In development, point at local Vapor server.
-        // Change to production URL before shipping.
+        // - Simulator can hit "http://localhost:8080" (same machine).
+        // - A physical iPhone needs the Mac's LAN IP, since `localhost` on the
+        //   phone means the phone itself.
+        // Override by setting API_BASE_URL in the Xcode scheme's environment.
+        // The hardcoded fallback below targets the Mac's current Wi-Fi IP —
+        // update it if your Mac's address changes (run `ipconfig getifaddr en0`).
         self.baseURL = ProcessInfo.processInfo.environment["API_BASE_URL"]
-            ?? "http://localhost:8080"
+            ?? "http://192.168.68.103:8080"
 
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
         config.timeoutIntervalForResource = 30
         self.session = URLSession(configuration: config)
 
+        // Server uses Swift-native camelCase keys (matches its Content DTOs).
+        // We mirror that here so property names round-trip 1:1 without any
+        // snake_case translation — keeps acronyms like `holdingID` intact.
         self.decoder = JSONDecoder()
-        self.decoder.keyDecodingStrategy = .convertFromSnakeCase
         self.decoder.dateDecodingStrategy = .iso8601
 
         self.encoder = JSONEncoder()
-        self.encoder.keyEncodingStrategy = .convertToSnakeCase
         self.encoder.dateEncodingStrategy = .iso8601
     }
 
@@ -161,6 +167,57 @@ final class APIClient {
 
     func deleteHolding(portfolioID: String, holdingID: String) async throws {
         try await requestEmpty(.holding(portfolioID: portfolioID, holdingID: holdingID), method: "DELETE")
+    }
+
+    func updateHolding(
+        portfolioID: String,
+        holdingID: String,
+        quantity: Double?,
+        avgCostBasis: Double?
+    ) async throws -> Holding {
+        struct Body: Encodable { let quantity: Double?; let avgCostBasis: Double? }
+        return try await request(
+            .holding(portfolioID: portfolioID, holdingID: holdingID),
+            method: "PATCH",
+            body: Body(quantity: quantity, avgCostBasis: avgCostBasis)
+        )
+    }
+
+    func createPosition(
+        portfolioID: String,
+        symbol: String,
+        assetClass: AssetClass,
+        dataSource: DataSource,
+        quantity: Double,
+        price: Double,
+        fees: Double,
+        date: Date,
+        notes: String
+    ) async throws -> Holding {
+        struct Body: Encodable {
+            let symbol: String
+            let assetClass: String
+            let dataSource: String
+            let quantity: Double
+            let price: Double
+            let fees: Double
+            let executedAt: Date
+            let notes: String
+        }
+        return try await request(
+            .positions(portfolioID: portfolioID),
+            method: "POST",
+            body: Body(
+                symbol: symbol,
+                assetClass: assetClass.rawValue,
+                dataSource: dataSource.rawValue,
+                quantity: quantity,
+                price: price,
+                fees: fees,
+                executedAt: date,
+                notes: notes
+            )
+        )
     }
 
     // MARK: - Transaction endpoints

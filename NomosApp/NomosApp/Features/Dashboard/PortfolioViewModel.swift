@@ -25,7 +25,12 @@ final class PortfolioViewModel: ObservableObject {
         defer { isLoading = false }
         do {
             portfolios = try await api.fetchPortfolios()
-            // Auto-select first portfolio, or previously selected one
+            // First-run bootstrap: create a default portfolio so "Add Holding"
+            // has somewhere to write to. Without this the button silently no-ops.
+            if portfolios.isEmpty {
+                let created = try await api.createPortfolio(name: "Main", currency: "USD")
+                portfolios = [created]
+            }
             if selectedPortfolioID == nil {
                 selectedPortfolioID = portfolios.first?.id
             }
@@ -72,14 +77,73 @@ final class PortfolioViewModel: ObservableObject {
 
     // MARK: - Holdings
 
-    func addHolding(symbol: String, assetClass: AssetClass, dataSource: DataSource) async {
+    /// If loadInitialData silently failed (e.g. server wasn't up at launch)
+    /// we'd have no portfolio and every mutation would no-op. Re-fetch or
+    /// create one on demand so the user's action still lands.
+    private func requirePortfolioID() async throws -> String {
+        if let pid = selectedPortfolioID { return pid }
+        let existing = try await api.fetchPortfolios()
+        if let first = existing.first {
+            portfolios = existing
+            selectedPortfolioID = first.id
+            return first.id
+        }
+        let created = try await api.createPortfolio(name: "Main", currency: "USD")
+        portfolios = [created]
+        selectedPortfolioID = created.id
+        return created.id
+    }
+
+    /// Throws so callers can surface failures (the Add sheet shows an inline
+    /// error instead of silently closing).
+    func addHolding(symbol: String, assetClass: AssetClass, dataSource: DataSource) async throws {
+        let pid = try await requirePortfolioID()
+        _ = try await api.createHolding(
+            portfolioID: pid,
+            symbol: symbol,
+            assetClass: assetClass,
+            dataSource: dataSource
+        )
+        try await refreshSummary(portfolioID: pid)
+    }
+
+    /// One-shot: add (quantity) shares of `symbol` at `price`. Creates the
+    /// holding if it doesn't exist and seeds it with a BUY transaction.
+    func addPosition(
+        symbol: String,
+        assetClass: AssetClass,
+        dataSource: DataSource,
+        quantity: Double,
+        price: Double,
+        fees: Double = 0,
+        date: Date = Date(),
+        notes: String = ""
+    ) async throws {
+        let pid = try await requirePortfolioID()
+        _ = try await api.createPosition(
+            portfolioID: pid,
+            symbol: symbol,
+            assetClass: assetClass,
+            dataSource: dataSource,
+            quantity: quantity,
+            price: price,
+            fees: fees,
+            date: date,
+            notes: notes
+        )
+        try await refreshSummary(portfolioID: pid)
+    }
+
+    /// Direct override of a holding's shares and/or avg cost — for quick
+    /// corrections that bypass the transaction ledger.
+    func updateHolding(holdingID: String, quantity: Double?, avgCostBasis: Double?) async {
         guard let pid = selectedPortfolioID else { return }
         do {
-            _ = try await api.createHolding(
+            _ = try await api.updateHolding(
                 portfolioID: pid,
-                symbol: symbol,
-                assetClass: assetClass,
-                dataSource: dataSource
+                holdingID: holdingID,
+                quantity: quantity,
+                avgCostBasis: avgCostBasis
             )
             try await refreshSummary(portfolioID: pid)
         } catch let err as APIError {

@@ -5,6 +5,7 @@ struct HoldingDetailView: View {
     @EnvironmentObject private var vm: PortfolioViewModel
     @State private var transactions: [Transaction] = []
     @State private var showAddTransaction = false
+    @State private var showEditPosition = false
     @State private var isLoading = true
 
     var body: some View {
@@ -56,16 +57,35 @@ struct HoldingDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showAddTransaction = true
+                Menu {
+                    Button {
+                        showAddTransaction = true
+                    } label: {
+                        Label("Add Transaction", systemImage: "plus.circle")
+                    }
+                    Button {
+                        showEditPosition = true
+                    } label: {
+                        Label("Edit Position", systemImage: "slider.horizontal.3")
+                    }
+                    Button(role: .destructive) {
+                        Task {
+                            await vm.deleteHolding(item.holding)
+                        }
+                    } label: {
+                        Label("Remove Holding", systemImage: "trash")
+                    }
                 } label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "ellipsis.circle")
                 }
             }
         }
         .sheet(isPresented: $showAddTransaction) {
             AddTransactionView(holdingID: item.holding.id, symbol: item.symbol)
                 .onDisappear { Task { await loadTransactions() } }
+        }
+        .sheet(isPresented: $showEditPosition) {
+            EditPositionView(holding: item.holding)
         }
         .task { await loadTransactions() }
     }
@@ -81,6 +101,73 @@ struct HoldingDetailView: View {
             Text(label).foregroundStyle(.secondary)
             Spacer()
             Text(value).foregroundStyle(valueColor).fontWeight(.medium)
+        }
+    }
+}
+
+// Quick override for a holding's shares / avg cost. Bypasses the transaction
+// ledger — useful for correcting bad imports or seed data.
+private struct EditPositionView: View {
+    let holding: Holding
+    @EnvironmentObject private var vm: PortfolioViewModel
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var quantity: String
+    @State private var avgCost: String
+    @State private var isSubmitting = false
+
+    init(holding: Holding) {
+        self.holding = holding
+        _quantity = State(initialValue: holding.quantity > 0 ? String(holding.quantity) : "")
+        _avgCost = State(initialValue: holding.avgCostBasis > 0 ? String(holding.avgCostBasis) : "")
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    LabeledContent("Symbol") { Text(holding.symbol).foregroundStyle(.secondary) }
+                    TextField("Shares", text: $quantity)
+                        .keyboardType(.decimalPad)
+                    TextField("Avg cost / share", text: $avgCost)
+                        .keyboardType(.decimalPad)
+                } header: {
+                    Text("Override")
+                } footer: {
+                    Text("Writes directly to the holding — does not create a transaction. Leave a field blank to keep its current value.")
+                }
+            }
+            .navigationTitle("Edit \(holding.symbol)")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") { submit() }
+                        .disabled(isSubmitting || !hasChange)
+                }
+            }
+            .overlay {
+                if isSubmitting { LoadingView(message: "Saving...") }
+            }
+        }
+    }
+
+    private var hasChange: Bool {
+        Double(quantity) != nil || Double(avgCost) != nil
+    }
+
+    private func submit() {
+        isSubmitting = true
+        Task {
+            await vm.updateHolding(
+                holdingID: holding.id,
+                quantity: Double(quantity),
+                avgCostBasis: Double(avgCost)
+            )
+            isSubmitting = false
+            dismiss()
         }
     }
 }

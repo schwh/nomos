@@ -24,6 +24,27 @@ struct CreateHoldingRequest: Content {
     let dataSource: String
 }
 
+// One-shot "add (x) shares @ (y) price" — creates the holding and its first
+// transaction atomically. `quantity` and `price` are required; the rest are
+// optional.
+struct CreatePositionRequest: Content {
+    let symbol: String
+    let assetClass: String
+    let dataSource: String?
+    let quantity: Double
+    let price: Double
+    let fees: Double?
+    let executedAt: Date?
+    let notes: String?
+}
+
+// Direct override of a holding's shares/avg-cost, for quick corrections
+// without going through the transaction ledger.
+struct UpdateHoldingRequest: Content {
+    let quantity: Double?
+    let avgCostBasis: Double?
+}
+
 struct HoldingResponse: Content {
     let id: String
     let symbol: String
