@@ -6,10 +6,14 @@
     <string>Nomos</string>
     <key>CFBundleDisplayName</key>
     <string>Nomos</string>
+    <!-- Hardcoded (not $(EXECUTABLE_NAME) / $(PRODUCT_BUNDLE_PACKAGE_TYPE))
+         because Xcode 26's plist preprocessor was dropping these keys when
+         the variable substitution didn't resolve, which made CoreDevice
+         reject device installs with "missing CFBundleExecutable". -->
     <key>CFBundleExecutable</key>
-    <string>$(EXECUTABLE_NAME)</string>
+    <string>NomosApp</string>
     <key>CFBundlePackageType</key>
-    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <string>APPL</string>
     <key>CFBundleIdentifier</key>
     <string>com.nomos.app</string>
     <key>CFBundleVersion</key>
@@ -26,9 +30,12 @@
     </array>
     <key>NSAppTransportSecurity</key>
     <dict>
-        <!-- Allow localhost for development; remove before App Store submission -->
+        <!-- Allow localhost + LAN HTTP for development; remove before App Store submission -->
         <key>NSAllowsLocalNetworking</key>
         <true/>
     </dict>
+    <!-- Required on iOS 14+ to reach the dev server on the LAN (a.k.a. Bonjour / local network). -->
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Nomos connects to your local Nomos development server to sync your portfolio.</string>
 </dict>
 </plist>

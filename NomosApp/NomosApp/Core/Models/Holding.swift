@@ -66,11 +66,13 @@ enum DataSource: String, Codable, CaseIterable {
         }
     }
 
-    /// Default source for a given asset class
+    /// Default source for a given asset class.
+    /// Yahoo is preferred where it's keyless; Finnhub stays available as an
+    /// opt-in upgrade for real-time US stock ticks (requires FINNHUB_API_KEY).
     static func defaultFor(_ assetClass: AssetClass) -> DataSource {
         switch assetClass {
         case .crypto:    return .hyperliquid
-        case .stock:     return .finnhub
+        case .stock:     return .yahoo
         case .commodity: return .yahoo
         case .forex:     return .yahoo
         }

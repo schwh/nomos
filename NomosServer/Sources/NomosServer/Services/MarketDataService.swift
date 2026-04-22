@@ -26,13 +26,22 @@ struct MarketDataService {
         case "hyperliquid":
             return try await HyperliquidService().quote(for: symbol, on: client)
         case "finnhub":
-            return try await FinnhubService().quote(for: symbol, on: client)
+            // If the Finnhub key is missing or the call fails, fall back to Yahoo
+            // so stocks keep quoting without any manual configuration.
+            if let q = try? await FinnhubService().quote(for: symbol, on: client) {
+                return q
+            }
+            return try await YahooFinanceService().quote(for: symbol, on: client)
         case "yahoo":
             return try await YahooFinanceService().quote(for: symbol, on: client)
         case "coingecko":
-            return try await CoinGeckoService().quote(for: symbol, on: client)
+            // CoinGecko occasionally rate-limits without a key; fall through to
+            // Hyperliquid which also covers major spot crypto pairs.
+            if let q = try? await CoinGeckoService().quote(for: symbol, on: client) {
+                return q
+            }
+            return try await HyperliquidService().quote(for: symbol, on: client)
         default:
-            // Try Finnhub first, fall back to Yahoo
             if let q = try? await FinnhubService().quote(for: symbol, on: client) {
                 return q
             }
